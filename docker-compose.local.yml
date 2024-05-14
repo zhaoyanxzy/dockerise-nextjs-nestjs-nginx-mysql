@@ -1,0 +1,43 @@
+version: "3"
+
+services:
+  api:
+    container_name: api
+    build:
+      context: ./server
+      dockerfile: Dockerfile.local
+    working_dir: /app
+    develop: 
+      watch: 
+        - action: sync
+          path: ./server
+          target: /app
+          ignore:
+            - node_modules/
+        - action: rebuild
+          path: package.json
+  client:
+    container_name: client
+    build:
+      context: ./client
+      dockerfile: Dockerfile.local
+    restart: always
+    develop:
+      watch:
+        - action: sync
+          path: ./client/app
+          target: /app/app
+          ignore:
+            - node_modules/
+        - action: rebuild
+          path: package.json
+  nginx:
+    container_name: nginx
+    image: nginx:alpine
+    depends_on:
+      - api
+      - client
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+    ports:
+      - "3040:80"
