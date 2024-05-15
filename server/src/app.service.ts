@@ -1,15 +1,8 @@
 import { Injectable } from '@nestjs/common';
-import { ConfigService } from '@nestjs/config';
 
 @Injectable()
 export class AppService {
-  constructor(private configService: ConfigService) {}
-
   getHello(): string {
-    return (
-      'Hello World!' +
-      this.configService.get<string>('DATABASE_USER') +
-      process.env.DATABASE_PASSWORD
-    );
+    return 'Hello World!';
   }
 }

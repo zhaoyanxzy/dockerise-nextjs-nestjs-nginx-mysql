@@ -4,7 +4,7 @@ export default async function ServerUserPage({
   params: { id: string };
 }) {
   try {
-    const res = await fetch(`http://nginx/api/${params.id}`, {
+    const res = await fetch(`http://nginx/api/users/${params.id}`, {
       method: "GET",
       next: { revalidate: 0 },
     });

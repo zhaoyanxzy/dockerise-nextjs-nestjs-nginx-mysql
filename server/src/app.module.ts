@@ -12,11 +12,7 @@ import { UsersModule } from './users/users.module';
       isGlobal: true, // Makes the config globally available
       envFilePath: ['.env.development.local'], // Path to your env file
     }),
-    TypeOrmModule.forRootAsync({
-      imports: [ConfigModule],
-      useFactory: getTypeOrmConfig,
-      inject: [ConfigService],
-    }),
+    TypeOrmModule.forRoot(getTypeOrmConfig(new ConfigService())),
     UsersModule,
   ],
   controllers: [AppController],
