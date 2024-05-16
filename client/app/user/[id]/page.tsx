@@ -1,8 +1,4 @@
-export default async function ServerUserPage({
-  params,
-}: {
-  params: { id: string };
-}) {
+export default async function UserPage({ params }: { params: { id: string } }) {
   try {
     const res = await fetch(`http://nginx/api/users/${params.id}`, {
       method: "GET",
